@@ -6,6 +6,8 @@ import SpeechRecognition, {
 import talkAnimation from '../../../assets/animations/talkAnimation.json'
 
 import './AiGfChat.css';
+import { speakFromAudioBlob } from '../../../shared/helpers/speakFromAudioBlob';
+import { convertTextToVoice } from '../../../shared/helpers/textToVoiceConverter';
 
 const AiGfChat: React.FC = () => {
 	const {
@@ -42,8 +44,14 @@ const AiGfChat: React.FC = () => {
 	}, [listening, transcript]);
 
 	useEffect(() => {
-		
+		if (!finalTranscript) return;
+		speak(finalTranscript);
 	}, [finalTranscript]);
+
+	async function speak(text: string) {
+		const audioBlob = await convertTextToVoice(text);
+		speakFromAudioBlob(audioBlob);
+	}
 
 	if (!browserSupportsSpeechRecognition) {
 		return <p>Your browser does not support speech recognition.</p>;
