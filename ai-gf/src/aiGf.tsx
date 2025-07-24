@@ -23,7 +23,7 @@ speechRecognition.onresult = async function (event) {
 	console.log(text);
 };
 
-async function callGemini(text) {
+async function callGemini(text : string) {
 	const body = {
 		system_instruction: {
 			parts: [
@@ -52,7 +52,7 @@ async function callGemini(text) {
 	return await response.json();
 }
 
-async function speak(text) {
+async function speak(text: string) {
 	const response = await fetch('https://api.openai.com/v1/audio/speech', {
 		method: 'POST',
 		headers: {
