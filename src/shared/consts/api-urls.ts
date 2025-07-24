@@ -1,0 +1,1 @@
+export const OPEN_AI_TEXT_SPEECH_URL = 'https://api.openai.com/v1/audio/speech';
