@@ -1,4 +1,4 @@
-export async function convertTextToVoice(text: string): Promise<Blob> {
+export async function convertTextToVoiceViaOpenApi(text: string): Promise<Blob> {
 	const OPEN_AI_API_KEY = import.meta.env.VITE_OPEN_AI_API_KEY;
 
 	const response = await fetch('https://api.openai.com/v1/audio/', {
