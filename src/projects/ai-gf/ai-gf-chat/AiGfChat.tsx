@@ -3,9 +3,14 @@ import React, { useEffect, useState } from 'react';
 import SpeechRecognition, {
 	useSpeechRecognition,
 } from 'react-speech-recognition';
-import talkAnimation from '../../../assets/animations/talkAnimation.json'
+import talkAnimation from '../../../assets/animations/talkAnimation.json';
 
 import './AiGfChat.css';
+;
+import { textToSpeechLocalAsync } from '../../../shared/helpers/textToVoiceConverterLocal';
+import { askLmStudio } from '../../../shared/helpers/askLmStudio';
+import { cleanTextForVoiceOver } from '../../../shared/helpers/cleanTextForVoiceOver';
+
 
 const AiGfChat: React.FC = () => {
 	const {
@@ -42,12 +47,21 @@ const AiGfChat: React.FC = () => {
 	}, [listening, transcript]);
 
 	useEffect(() => {
-		
+		if (!finalTranscript) return;
+		queryAndSpeak(finalTranscript);
 	}, [finalTranscript]);
+
+	async function queryAndSpeak(query: string) {
+		const answer = await askLmStudio(query);
+		const cleanedText = cleanTextForVoiceOver(answer);
+		await textToSpeechLocalAsync(cleanedText);
+	}
 
 	if (!browserSupportsSpeechRecognition) {
 		return <p>Your browser does not support speech recognition.</p>;
 	}
+
+	console.log(isTalking);
 
 	return (
 		<div className='chat-container'>
