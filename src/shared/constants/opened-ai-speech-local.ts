@@ -7,7 +7,7 @@ export const alloy: OpenedAiSpeechSetting = {
 	model: 'tts-1',
 	voice: 'alloy',
 	response_format: 'mp3',
-	speed: 1,
+	speed: 0.5,
 };
 
 export const alloyHd: OpenedAiSpeechSetting = {
