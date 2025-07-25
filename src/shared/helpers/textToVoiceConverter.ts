@@ -1,5 +1,3 @@
-
-
 export async function convertTextToVoice(text: string): Promise<Blob> {
 	const OPEN_AI_API_KEY = import.meta.env.VITE_OPEN_AI_API_KEY;
 
@@ -21,7 +19,7 @@ export async function convertTextToVoice(text: string): Promise<Blob> {
 
 	const audioBlob = await response.blob();
 
-	console.log("Blob type:", audioBlob.type);
+	console.log('Blob type:', audioBlob.type);
 
 	return audioBlob;
 }

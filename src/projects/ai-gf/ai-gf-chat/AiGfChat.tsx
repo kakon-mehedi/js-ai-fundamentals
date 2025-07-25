@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import SpeechRecognition, {
 	useSpeechRecognition,
 } from 'react-speech-recognition';
-import talkAnimation from '../../../assets/animations/talkAnimation.json'
+import talkAnimation from '../../../assets/animations/talkAnimation.json';
 
 import './AiGfChat.css';
 import { speakFromAudioBlob } from '../../../shared/helpers/speakFromAudioBlob';
 import { convertTextToVoice } from '../../../shared/helpers/textToVoiceConverter';
+import { textToSpeechLocalAsync } from '../../../shared/helpers/textToVoiceConverterLocal';
 
 const AiGfChat: React.FC = () => {
 	const {
@@ -49,8 +50,7 @@ const AiGfChat: React.FC = () => {
 	}, [finalTranscript]);
 
 	async function speak(text: string) {
-		const audioBlob = await convertTextToVoice(text);
-		speakFromAudioBlob(audioBlob);
+		await textToSpeechLocalAsync(text);
 	}
 
 	if (!browserSupportsSpeechRecognition) {
