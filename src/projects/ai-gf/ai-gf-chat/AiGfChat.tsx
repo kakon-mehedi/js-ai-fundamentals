@@ -8,6 +8,9 @@ import talkAnimation from '../../../assets/animations/talkAnimation.json';
 import './AiGfChat.css';
 ;
 import { textToSpeechLocalAsync } from '../../../shared/helpers/textToVoiceConverterLocal';
+import { askLmStudio } from '../../../shared/helpers/askLmStudio';
+import { cleanTextForVoiceOver } from '../../../shared/helpers/cleanTextForVoiceOver';
+
 
 const AiGfChat: React.FC = () => {
 	const {
@@ -45,11 +48,13 @@ const AiGfChat: React.FC = () => {
 
 	useEffect(() => {
 		if (!finalTranscript) return;
-		speak(finalTranscript);
+		queryAndSpeak(finalTranscript);
 	}, [finalTranscript]);
 
-	async function speak(text: string) {
-		await textToSpeechLocalAsync(text);
+	async function queryAndSpeak(query: string) {
+		const answer = await askLmStudio(query);
+		const cleanedText = cleanTextForVoiceOver(answer);
+		await textToSpeechLocalAsync(cleanedText);
 	}
 
 	if (!browserSupportsSpeechRecognition) {
