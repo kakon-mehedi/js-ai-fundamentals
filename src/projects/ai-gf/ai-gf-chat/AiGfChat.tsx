@@ -6,8 +6,7 @@ import SpeechRecognition, {
 import talkAnimation from '../../../assets/animations/talkAnimation.json';
 
 import './AiGfChat.css';
-import { speakFromAudioBlob } from '../../../shared/helpers/speakFromAudioBlob';
-import { convertTextToVoice } from '../../../shared/helpers/textToVoiceConverter';
+;
 import { textToSpeechLocalAsync } from '../../../shared/helpers/textToVoiceConverterLocal';
 
 const AiGfChat: React.FC = () => {
@@ -56,6 +55,8 @@ const AiGfChat: React.FC = () => {
 	if (!browserSupportsSpeechRecognition) {
 		return <p>Your browser does not support speech recognition.</p>;
 	}
+
+	console.log(isTalking);
 
 	return (
 		<div className='chat-container'>
